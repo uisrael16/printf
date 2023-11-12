@@ -5,15 +5,16 @@
  * @format: input string.
  *
  * Return: number of chars printed.
- */
+ * **/
 
-int _printf(const char *format, ...) {
+int	_printf(const char *format, ...) {
     va_list args;
     va_start(args, format);
 
-    int count = 0; 
+    int count = 0;
 
-    while (*format) {
+    while (*format)
+    {
         if (*format == '%') {
             format++;
             switch (*format) {
@@ -34,7 +35,7 @@ int _printf(const char *format, ...) {
                     putchar(*format);
                     count += 2;
             }
-        } else 
+        } else
 	{
             putchar(*format);
             count++;
@@ -46,3 +47,4 @@ int _printf(const char *format, ...) {
     va_end(args);
     return count;
 }
+
