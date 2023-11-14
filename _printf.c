@@ -6,53 +6,42 @@
  *
  * Return: number of chars printed.
  */
-int _printf(const char *format, ...)
-{   
-    char *buffer;
-    unsigned int length;
-    unsigned int ibuf; 
-    va_list arguments;
-    size_t buffer_size;
-     unsigned int i;
-    if (!format)
-    {
-        return -1;
-    }
 
-   
+int _printf(const char *format, ...) {
+    const char *p;
+    va_list arguments;
+    flags_t flags = {0, 0, 0};
+
+    register int count = 0;
+
     va_start(arguments, format);
 
-    
-    buffer_size = 1024;
-    buffer = malloc(sizeof(char) * buffer_size);
-
-    if (!buffer)
-    {
-        va_end(arguments);
+    if (!format || (format[0] == '%' && !format[1]))
         return -1;
-    }
 
-    length = 0;
-    ibuf = 0;
+    if (format[0] == '%' && format[1] == ' ' && !format[2])
+        return -1;
 
-    for (i = 0; format[i]; i++)
-    {
+    for (p = format; *p; p++) {
+        if (*p == '%') {
+            p++;
 
-        buffer[ibuf++] = format[i];
+            if (*p == '%') {
+                count += _putchar('%');
+                continue;
+            }
 
-        if (ibuf >= buffer_size - 1)
-        {
-            print_buf(buffer, ibuf);
-            ibuf = 0;
+            while (get_flags(*p, &flags))
+                p++;
+
+            int (*f)(va_list, flags_t *) = get_print(*p);
+            count += (f) ? f(arguments, &flags) : _printf("%%%c", *p);
+        } else {
+            count += _putchar(*p);
         }
     }
 
-    print_buf(buffer, ibuf);
-
-    free(buffer);
-
+    _putchar(-1);
     va_end(arguments);
-
-    return length;
+    return count;
 }
-
