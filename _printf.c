@@ -5,46 +5,54 @@
  * @format: input string.
  *
  * Return: number of chars printed.
- * **/
-
-int	_printf(const char *format, ...) {
-    va_list args;
-    va_start(args, format);
-
-    int count = 0;
-
-    while (*format)
+ */
+int _printf(const char *format, ...)
+{   
+    char *buffer;
+    unsigned int length;
+    unsigned int ibuf; 
+    va_list arguments;
+    size_t buffer_size;
+     unsigned int i;
+    if (!format)
     {
-        if (*format == '%') {
-            format++;
-            switch (*format) {
-                case 'c':
-                    putchar(va_arg(args, int));
-                    count++;
-                    break;
-                case 's':
-                    fputs(va_arg(args, char*), stdout);
-                    count += strlen(va_arg(args, char*));
-                    break;
-                case '%':
-                    putchar('%');
-                    count++;
-                    break;
-                default:
-                    putchar('%');
-                    putchar(*format);
-                    count += 2;
-            }
-        } else
-	{
-            putchar(*format);
-            count++;
-        }
-
-        format++;
+        return -1;
     }
 
-    va_end(args);
-    return count;
+   
+    va_start(arguments, format);
+
+    
+    buffer_size = 1024;
+    buffer = malloc(sizeof(char) * buffer_size);
+
+    if (!buffer)
+    {
+        va_end(arguments);
+        return -1;
+    }
+
+    length = 0;
+    ibuf = 0;
+
+    for (i = 0; format[i]; i++)
+    {
+
+        buffer[ibuf++] = format[i];
+
+        if (ibuf >= buffer_size - 1)
+        {
+            print_buf(buffer, ibuf);
+            ibuf = 0;
+        }
+    }
+
+    print_buf(buffer, ibuf);
+
+    free(buffer);
+
+    va_end(arguments);
+
+    return length;
 }
 
