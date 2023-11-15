@@ -44,6 +44,11 @@ int _percent(va_list list, flags_t *f);
 int (*printter(char s))(va_list, flags_t*);
 char *convert_size(unsigned long int num, int base, int lower_case);
 int flags(char s, flags_t *f);
+int print_hexadecimal(va_list list, flags_t *f);
+int print_oct(va_list list, flags_t *f);
+int print_h2(va_list list, flags_t *f);
+int custom_itoa(unsigned int value, char *buffer, int base);
+int print_binary(va_list list, flags_t *f);
 int _putchar(char c);
 int _printf(const char *format, ...);
 
