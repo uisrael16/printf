@@ -1,15 +1,17 @@
 #include "main.h"
+
 /**
  * percent - prints a percent sign
  * @list: va_list arguments from _printf
  * @f: pointer to the struct flags in which we turn the flags on
  * Return: number of characters printed
  */
-int percent(va_list list, flags_t *f)
+
+int	percent(va_list list, flags_t *f)
 {
     (void)list;  
     if (f == NULL)
-        return 0; 
+        return (0); 
 
     return _putchar('%');
 }
@@ -21,20 +23,21 @@ int percent(va_list list, flags_t *f)
  * if a flag is passed to _printf
  * Return: number of char printed
  */
-int get_char(va_list list, flags_t *f)
+
+int	get_char(va_list list, flags_t *f)
 {
 	(void)f;
 	_putchar(va_arg(list, int));
 	return (1);
 }
 
-int ASCII_print(va_list list, flags_t *f)
+int	ASCII_print(va_list list, flags_t *f)
 {
 	int i, count = 0;
 	char *res;
 	char *s = va_arg(list, char *);
-
 	(void)f;
+
 	if (!s)
 		return (_puts("(null)"));
 
@@ -66,7 +69,8 @@ int ASCII_print(va_list list, flags_t *f)
  * number into the correct base and returns it as a string
  * Return: the number of char printed
  */
-int get_hexadecimal(va_list list, flags_t *f)
+
+int	get_hexadecimal(va_list list, flags_t *f)
 {
 	unsigned int num = va_arg(list, unsigned int);
 	char *str = convertToBaseString(num, 16, 1);
@@ -88,7 +92,8 @@ int get_hexadecimal(va_list list, flags_t *f)
  * number into the correct base and returns it as a string
  * Return: the number of char printed
  */
-int get_hexadecimal_(va_list list, flags_t *f)
+
+int	get_hexadecimal_(va_list list, flags_t *f)
 {
 	unsigned int num = va_arg(list, unsigned int);
 	char *str = convertToBaseString(num, 16, 0);
@@ -99,8 +104,4 @@ int get_hexadecimal_(va_list list, flags_t *f)
 	count += _puts(str);
 	return (count);
 }
-
-
-
-
 

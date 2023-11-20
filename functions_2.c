@@ -9,7 +9,8 @@
  * Free the allocated memory for the string
  * Return the total count of characters printed
  */
-int get_addrss(va_list list, flags_t *f)
+
+int	get_addrss(va_list list, flags_t *f)
 {
     unsigned long int address = va_arg(list, unsigned long int);
 	char *address_str;
@@ -41,7 +42,8 @@ int get_addrss(va_list list, flags_t *f)
  * @return Returns 1 if the flag was recognized and set successfully, 0 otherwise.
  */
 
-int flags(char s, flags_t *f) {
+int	flags(char s, flags_t *f)
+{
     switch (s) {
         case '+': f->plus = 1; return 1;
         case ' ': f->space = 1; return 1;

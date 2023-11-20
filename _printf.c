@@ -19,22 +19,28 @@
 
 
 
-int _printf(const char *format, ...) {
+int	_printf(const char *format, ...)
+{
     va_list args;
     int count = 0;
     va_start(args, format);
 
-    while (*format) {
-        if (*format == '%' && *(format + 1) != '\0') {
+    while (*format)
+    {
+        if (*format == '%' && *(format + 1) != '\0')
+	{
             format++;
-            switch (*format) {
-                case 'c': {
+            switch (*format)
+	    {
+                case 'c':
+			{
                     char c = va_arg(args, int);
                     _putchar(c);
                     count++;
                     break;
                 }
-                case 's': {
+                case 's': 
+			{
                     char *str = va_arg(args, char *);
                     while (*str) {
                         _putchar(*str);
@@ -48,19 +54,24 @@ int _printf(const char *format, ...) {
                     
                     char buffer[20];
                     int i = 0;
-                    if (num < 0) {
+                    if (num < 0)
+		    {
                         _putchar('-');
                         count++;
                         num = -num;
                     }
-                    while (num != 0) {
+                    while (num != 0)
+		    {
                         buffer[i++] = num % 10 + '0';
                         num /= 10;
                     }
-                    if (i == 0) {
+                    if (i == 0)
+		    {
                         _putchar('0');
                         count++;
-                    } else {
+                    }
+		    else
+		    {
                         while (--i >= 0) {
                             _putchar(buffer[i]);
                             count++;
@@ -73,7 +84,9 @@ int _printf(const char *format, ...) {
                     _putchar(*format);
                     count += 2;
             }
-        } else {
+        }
+	else
+	{
             _putchar(*format);
             count++;
         }
@@ -81,5 +94,6 @@ int _printf(const char *format, ...) {
     }
 
     va_end(args);
-    return count;
+    return (count);
 }
+

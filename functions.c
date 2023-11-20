@@ -9,7 +9,7 @@
  * Return: A dynamically allocated string representing the converted number in the specified base.
  */
 
-char *convertToBaseString(unsigned long int number, int base, int useLowerCaseHex)
+char	*convertToBaseString(unsigned long int number, int base, int useLowerCaseHex)
 {
     char *rep = useLowerCaseHex ? "0123456789abcdef" : "0123456789ABCDEF";
     char *buffer;
@@ -18,41 +18,45 @@ char *convertToBaseString(unsigned long int number, int base, int useLowerCaseHe
 
 	buffer = (char *)malloc(MAX_BUFFER_SIZE);
     
-    if (buffer == NULL) {
-        return NULL;
+    if (buffer == NULL)
+    {
+        return (NULL);
     }
 
     i = MAX_BUFFER_SIZE - 1;
     
-    if (number == 0) {
+    if (number == 0)
+    {
         buffer[i--] = '0';
-    } else {
-        while (number > 0 && i >= 0) {
+    }
+    else
+    {
+        while (number > 0 && i >= 0)
+	{
             buffer[i--] = rep[number % base];
             number /= base;
         }
     }
    
-    for (j = i + 1; j < MAX_BUFFER_SIZE; j++) {
+    for (j = i + 1; j < MAX_BUFFER_SIZE; j++)
+    {
         buffer[j - i - 1] = buffer[j];
     }
-
-    return buffer;
+    return (buffer);
 }
 
-int get_digit(int number)
+int	get_digit(int number)
 {
     int count = 0;
 
-    while (number != 0) {
+    while (number != 0)
+    {
         number /= 10;
         count++;
     }
-
-    return count;
-
-    return count;
+    return (count);
 }
+
 /*
 *Function to print an integer with optional flags
 *Handle the space flag
@@ -72,21 +76,26 @@ int print_int(va_list list, flags_t *f)
         res += _putchar(' ');
     }
 
-    if (f->plus && n >= 0) {
+    if (f->plus && n >= 0)
+    {
         res += _putchar('+');
-    } else if (n < 0) {
+    }
+    else if (n < 0)
+    {
         res += _putchar('-');
         n = -n;
     }
 
-    if (n == 0) {
+    if (n == 0)
+    {
         res += _putchar('0');
-    } else {
-        
+    }
+    else
+    {     
         print_num(n);
     }
 
-    return res;
+    return( res);
 }
 /*
 *The argument_checker function is a utility function designed 
@@ -95,7 +104,7 @@ int print_int(va_list list, flags_t *f)
 *where different format specifiers are associated with specific printing functions.
 */
 
-int (*argument_checker(char s))(va_list, flags_t *)
+int	(*argument_checker(char s))(va_list, flags_t *)
 {
 	size_t i;
     print_handler array_func[] = {
@@ -115,16 +124,17 @@ int (*argument_checker(char s))(va_list, flags_t *)
 		{'%', percent},
     };
     
-    for (i = 0; i < sizeof(array_func) / sizeof(array_func[0]); ++i) {
+    for (i = 0; i < sizeof(array_func) / sizeof(array_func[0]); ++i)
+    {
         if (array_func[i].c == s) {
-            return array_func[i].f;
+            return (array_func[i].f);
         }
     }
     
-    return NULL;
+    return (NULL);
 }
 
-int get_uns(va_list list, flags_t *f)
+int	get_uns(va_list list, flags_t *f)
 {
 	unsigned int u = va_arg(list, unsigned int);
 	char *str = convertToBaseString(u, 10, 0);
@@ -138,7 +148,8 @@ int get_uns(va_list list, flags_t *f)
  * an integer and prints all its digits
  * @num: integer to be printed
  */
-void print_num(int num)
+
+void	print_num(int num)
 {
 
 	int INT_MIN = 0;
